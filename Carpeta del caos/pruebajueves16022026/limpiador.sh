@@ -5,23 +5,38 @@ mkdir -p TXTS
 mkdir -p PDFS
 mkdir -p VACIOS
 
+count_imgs=0
+count_docs=0
+count_txts=0
+count_pdfs=0
+count_vacios=0
+    
+
 for archivo in *
 do
     echo "=====> $archivo"
-    if [[  "$archivo" == *.doc ||  "$archivo" == *.odt ]]; then
+    if [[ "$archivo" == *.docx || "$archivo" == *.odt ]]; then
         mv "$archivo" DOCS
-    elif [[ "$archivo" == *.jpg || "$archivo" == *.bmp || "$archivo" == *.gif || "$archivo" == *.png ]]; then
+        ((count_docs++))
+    elif [[ "$archivo" == *.jpg || "$archivo" == *.png || "$archivo" == *.gif ]]; then
         mv "$archivo" IMGS
+        ((count_imgs++))
     elif [[ "$archivo" == *.txt ]]; then
         mv "$archivo" TXTS
+        ((count_txts++))
     elif [[ "$archivo" == *.pdf ]]; then
         mv "$archivo" PDFS
+        ((count_pdfs++))
     elif [[ -d "$archivo" ]]; then
         echo "Skipping directory: $archivo"
-    elif [[  "$archivo" == *.sh ]]; then
+    elif [[ "$archivo" == *.sh ]]; then
         echo "No se mueve, es importante"
-    else
+    elif [[ ! -s "$archivo" ]]; then
         mv "$archivo" VACIOS
+        ((count_vacios++))
     fi
-
+    
 done
+
+echo
+echo "Hay ${count_docs} documentos, hay ${count_imgs} imagenes, hay ${count_txts} archivos de texto, hay ${count_pdfs} pdfs y hay ${count_vacios} elementos vacios"
