@@ -1,0 +1,10 @@
+#!/bin/bash
+
+read -p "Base:   " B
+read -p "Altura: " A
+echo "Área: $(echo "scale=2; $B * $A / 2" | bc)"
+echo
+for ((i=1; i<=A; i++)); do
+  ancho=$(echo "$i * $B / $A" | bc)
+  printf '%0.s#' $(seq 1 $ancho); echo
+done
