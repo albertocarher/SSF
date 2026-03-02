@@ -1,9 +1,0 @@
-#!/bin/bash
-
-read -p "Base:   " B
-read -p "Altura: " A
-echo "Área: $((B * A))"
-echo
-for ((i=0; i<A; i++)); do
-  printf '%0.s#' $(seq 1 $B); echo
-done
